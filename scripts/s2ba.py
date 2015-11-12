@@ -33,7 +33,7 @@ import sys
 
 def main():
 	if len(sys.argv) < 2:
-		print "Please provide a tlv formatted string."
+		print "Please provide a hexadecimal string."
 		return
 		
 	for stringVar in sys.argv[1:]:

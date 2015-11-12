@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # Name:         tlvparse.py
 # Purpose:      A simple python script that parses a tlv formatted string and
-#				and prints the results in a table.
+#				prints the results in a table.
 #
 # Author:       Tyler Ramsey
 #

@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Name:         GenUUID.py
+# Name:         genUUID.py
 # Purpose:      A simple python script with command line interface for generating
 #               UUIDs with a variety of formatting options.
 #

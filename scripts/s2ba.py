@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
-# Name:         tlvparse.py
-# Purpose:      A simple python script that parses a tlv formatted string and
-#				and prints the results in a table.
+# Name:         s2ba.py
+# Purpose:      A simple python script that converts a hexadecimal string to a C#
+#				byte array format.
 #
 # Author:       Tyler Ramsey
 #
@@ -31,57 +31,29 @@
 
 import sys
 
-from prettytable import PrettyTable
-
-bitMask = 0x1F
-
-def formatHexValue(stringValue):
-	counter = 0
-	result = ""
-
-	for c in stringValue:
-		if counter % 2 == 0:
-			result += "0x"
-
-		result += c
-		counter +=1
-
-		if counter % 2 == 0:
-			result += ", "
-
-	return result[0:len(result) - 2]
-
 def main():
 	if len(sys.argv) < 2:
 		print "Please provide a tlv formatted string."
 		return
+		
+	for stringVar in sys.argv[1:]:
+		counter = 0
+		result = ""
 
-	table = PrettyTable(["Tag", "Length", "Value"])
-	table.align["Value"] = "l"
+		if len(stringVar) % 2 != 0:
+			raise ValueError("String entered does not have an even amount of characters.")
 
-	tlvData = sys.argv[1]
-	position = 0
+		for c in stringVar:
+			if counter % 2 == 0:
+				result += "0x"
 
-	array = bytearray.fromhex(tlvData)
-	while position < len(array):
-		tag = format(array[position], "02X")
+			result += c
+			counter +=1
 
-		if array[position] & bitMask == bitMask:
-			tag += format(array[position+1], "02X")
-			position += 1
+			if counter % 2 == 0:
+				result += ", "
 
-		position +=1
-		length = format(array[position], "02X")
-
-		position +=1
-		value = formatHexValue(''.join(format(b, "02X") for b in array[position : position + array[position-1]]))
-
-		position += array[position-1]
-		table.add_row([tag, length, value])
-
-	table.sortby = "Tag"
-	print table
-
+		print result[0:len(result) - 2]
 
 if __name__ == "__main__":
 	main()
